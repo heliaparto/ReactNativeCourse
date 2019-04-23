@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>wnd tamrin</title>
+    <style media="screen">
+    #main{
+      text-align: center;
+      font-size: 36px;
+      font-weight: bold;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      fon
+      padding: 18px;
+      border-radius: 2px;
+      text-shadow: 2px 2px #bce2ff;
+    }
+    .button {
+      background-color: #09316d; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 23px;
+      text-align: center;
+
+      text-decoration: none;
+      display: inline-block;
+      font-size: 26px;
+      border-radius: 2px;
+      margin: 4px;
+      /* display: inline-block; */
+    }
+    .answerButton{
+      margin: 5px;
+      background-color: #4CAF50; /* Green */
+      border: none;
+      color: white;
+      padding: 14px 31px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 23px;
+      position: relative;
+      left: -2px;
+    }
+    body{
+      background:url("89.jpg");
+      background-repeat: no-repeat;
+      background-size: 100% 730px;
+    }
+
+    #status{
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      color: darkred;
+      padding: 18px;
+      border-radius: 2px;
+      text-shadow: 2px 2px #bce2ff;
+
+
+
+    }
+    </style>
+  </head>
+  <body >
+    <div class="centered" style="text-align:center;">
+    <p id="main">If you click on a bomb it will explode, otherwise you will get a hint</p>
+    <!-- first row -->
+    <button type="button" name="button11" class="button" id='button11' onclick=buttonFunction(1,1)>?</button>
+    <button type="button" name="button12" class="button" id="button12" onclick=buttonFunction(1,2)>?</button>
+    <button type="button" name="button13" class="button" id="button13" onclick=buttonFunction(1,3)>?</button>
+    <button type="button" name="button14" class="button" id="button14" onclick=buttonFunction(1,4)>?</button>
+    <br/>
+    <!-- second row -->
+    <button type="button" name="button21" class="button" id="button21" onclick=buttonFunction(2,1)>?</button>
+    <button type="button" name="button22" class="button" id="button22" onclick=buttonFunction(2,2)>?</button>
+    <button type="button" name="button23" class="button" id="button23" onclick=buttonFunction(2,3)>?</button>
+    <button type="button" name="button24" class="button" id="button24" onclick=buttonFunction(2,4)>?</button>
+    <br/>
+    <!-- third row -->
+    <button type="button" name="button31" class="button" id="button31" onclick=buttonFunction(3,1)>?</button>
+    <button type="button" name="button32" class="button" id="button32" onclick=buttonFunction(3,2)>?</button>
+    <button type="button" name="button33" class="button" id="button33" onclick=buttonFunction(3,3)>?</button>
+    <button type="button" name="button34" class="button" id="button34" onclick=buttonFunction(3,4)>?</button>
+    <br/>
+    <!-- forth row -->
+    <button type="button" name="button41" class="button" id="button41" onclick=buttonFunction(4,1)>?</button>
+    <button type="button" name="button42" class="button" id="button42" onclick=buttonFunction(4,2)>?</button>
+    <button type="button" name="button43" class="button" id="button43" onclick=buttonFunction(4,3)>?</button>
+    <button type="button" name="button44" class="button" id="button44" onclick=buttonFunction(4,4)>?</button>
+
+    <!-- show answer button -->
+    <br/>
+    <button type="button" name="showAnswer" class="answerButton" id="shadow" onclick=answerFunction()>answer</button>
+    <button type="button" name="restart" class="answerButton" id="restart" onclick=restartFunction()>restart</button>
+
+    <p id="status"> </p>
+
+    </div>
+    <script type="text/javascript">
+
+      var row=[];
+      row.push([0,0,0,0,0,0])//intori balash ye khatsefr ezafe mishe
+      var unit=[];
+      var size=4;
+      for (var i = 0; i < size; i++) {
+        unit.push(0)
+        for (var j = 0; j < size; j++) {
+
+          unit.push(Math.round(Math.random()))
+        }
+          unit.push(0)
+          row.push(unit);//har radif ro ba ye sef aval va akharesh push mikone
+          unit=[]
+      }
+      row.push([0,0,0,0,0,0])//be paeenesh ye khat sefr ezafe mikone
+      document.getElementById('demo').innerHTML=row;
+
+
+      function buttonFunction(radif,sotoon){
+        var k1=radif
+        var k2=sotoon
+            if (row[k1][k2]==1) {
+              document.getElementById('button'+(k1)+(k2)).innerHTML='b';
+              document.getElementById('button'+(k1)+(k2)).style.color='red';
+              document.getElementById('status').innerHTML='You Lost!';
+
+
+            }
+            else {
+              //jam chizayee ke atrafesh hast
+              var sum=row[k1][k2+1]+row[k1+1][k2]+row[k1+1][k2+1]+row[k1-1][k2]+row[k1][k2-1]+row[k1-1][k2-1]+row[k1-1][k2+1]+row[k1+1][k2-1];
+              document.getElementById('button'+(k1)+(k2)).innerHTML=sum;
+              document.getElementById('button'+(k1)+(k2)).style.cssText='background-color:#cefaff;color:#09316d; border:3px solid #09316d;padding:12px 20px;';
+
+            }
+
+}
+
+
+
+
+function answerFunction(){
+  for (var k1 = 0; k1 < size; k1++) {
+    for (var k2 = 0; k2 < size; k2++) {
+      if (row[k1+1][k2+1]==1) {
+        document.getElementById('button'+(k1+1)+(k2+1)).innerHTML='b';
+        document.getElementById('button'+(k1+1)+(k2+1)).style.color='red';
+      }
+      else {
+
+        document.getElementById('button'+(k1+1)+(k2+1)).innerHTML=row[k1+1][k2+2]+row[k1+2][k2+1]+row[k1+2][k2+2]+row[k1][k2+1]+row[k1+1][k2]+row[k1][k2]+row[k1][k2+2]+row[k1+2][k2];
+
+      }
+}
+}
+}
+function restartFunction(){
+  document.location.reload() ;
+}
+
+
+    </script>
+  </body>
+</html>
